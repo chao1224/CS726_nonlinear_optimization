@@ -1,0 +1,348 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsmath,amsthm,amsbsy,graphicx,color,dsfont,listings, float, graphicx, amssymb, textcomp}
+
+%
+\renewcommand{\baselinestretch}{1}
+\topmargin=-0.5truein
+\textheight=9.0truein
+\oddsidemargin=0.0truein
+\textwidth=6.5truein
+%
+\pagestyle{empty}
+\def \R{\mathbb R}
+\def \E{\mathbb E}
+\def \bmu{\boldsymbol \mu}
+\def \P{\mathbb P}
+\def \bX{\mbox{\boldmath$X$}}
+\def \beps{\boldsymbol \epsilon}
+\def \bx{\boldsymbol x}
+\def \by{\boldsymbol y}
+\def \bw{\boldsymbol w}
+\def \bs{\boldsymbol s}
+\def \bv{\boldsymbol v}
+\def \bI{\boldsymbol I}
+\def \bSigma{\boldsymbol \Sigma}
+\def \btheta{\boldsymbol \theta}
+\def \bH{\boldsymbol H}
+\def \bmu{\boldsymbol \mu}
+\def \1{\mathds{1}}
+\def \F{{\cal F}}
+\def \Rad{\mathfrak{R}}
+
+
+\begin{document}
+
+\begin{center} {\Large
+{\bf Homework 1\\Shengchao Liu}}
+\end{center}
+
+\begin{enumerate}
+
+% Problem 1
+\item
+
+\begin{enumerate}
+\item
+Is polyhedra.
+
+$ \{ x | \begin{bmatrix} 1 & 0 & \hdots & 0 \\ 0 & 1 & \hdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \hdots & 1 \end{bmatrix} x \ge \begin{bmatrix} 0 \\ 0 \\ \vdots \\ 0\end{bmatrix},
+\begin{bmatrix} 1 & 1 & \hdots 1 \\ a_1 & a_2 & \hdots a_n \\ a_1^2 & a_2^2 & \hdots a_n^2 \end{bmatrix} x = \begin{bmatrix} 1 \\ b \\ c \end{bmatrix} \}$
+
+\item
+Not polyhedra.
+
+\item
+Is polyhedra.
+
+$x^T y \le 1$ for all $y$ with $\|y\|^2=1$, this implies that $\underset{i}{\max} |x_i| \le 1$
+
+Proof:
+
+If $\underset{i}{\max} |x_i| > 1$ when $i=k$, then we can find y with $\|y\|^2=1$ and $y_k=1$ if $ x_k=1 $, $y_k=-1$ if $ x_k=-1 $, and $\underset{i \ne k}{y_i} = 0$.
+
+Then $x^T = \sum x_i y_i = x_k y_k > 1$, contradicts with assumption.
+
+So $\underset{i}{|x_i|} \le 1 \Longrightarrow 1 \succeq x \succeq -1$
+
+$ \{ x | \begin{bmatrix} 1 & 0 & \hdots & 0 \\ 0 & 1 & \hdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \hdots & 1 \\
+-1 & 0 & \hdots & 0 \\ 0 & -1 & \hdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \hdots & -1 
+\end{bmatrix} x \ge  \begin{bmatrix} -1 \\ -1 \\ \vdots \\ -1 \\ -1 \\ -1 \\ \vdots \\ -1 \end{bmatrix} \}$
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bigskip
+% Problem 2
+\item
+
+According to definition, $x^*$ is isolated local minima if there is a neighbourhood $N$ of $x^*$ such that $x^*$ is the only local minima in $N$.
+
+Assume $x^*$ is not a strict local minima, which means we can find $x^k$ such that both $x^*$ and $x^k$ are local minima, and $x^k \in N$. And this contradicts with the definition of $x^*$ being the only local minima in $N$.
+
+$\therefore$ all isolated local minima are strict.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bigskip
+% Problem 3
+\item
+\begin{enumerate}
+\item
+
+$\begin{bmatrix} 1 & 2 \\ 2 & 1\end{bmatrix}$, the eigenvalues are $-3$, and $1$. So it is not positive definite.
+
+
+\item
+
+Yes.
+
+If $A=\begin{bmatrix} a_{11} & a_{12} & \hdots & a_{1n} \\ a_{21} & a_{22} & \hdots & a_{2n} \\  \vdots & \vdots & \ddots & \vdots \\ a_{n1} & a_{n2} & \hdots & a_{nn}\end{bmatrix}$ is positive semi definite, according to definition, $ x^T A x \ge 0, \forall x=\begin{bmatrix} x_1, x_2, \hdots x_n\end{bmatrix}$.
+
+We can get $ x^T A x = a_{11} x_1^2 + a_{22} x_2^2 + \hdots a_{nn} x_n^2 + a_{12} x_1 x_2 + a_{13} x_1 x_3 + \hdots a_{(n-1) n}x_{n-1}x_n$.
+
+Assume $\exists i \in [1, n], a_{ii} < 0$. Then we can set $x = \begin{bmatrix} 0, 0, \hdots, x_i, \hdots, 0 \end{bmatrix}, x_i \ne 0$.
+
+Then $x^T A x = a_{ii} x_i^2 < 0$, which contradicts $x^T A x \ge 0$.
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bigskip
+% Problem 4
+\item
+
+$f(x) = 100(x_2 - x_1^2)^2 + (1 - x_1)^2$
+
+$\triangledown f(x) = \begin{bmatrix} -400 x_1 (x_2 - x_1^2) - 2(1-x_1) \\ 200 (x_2 - x_1^2)\end{bmatrix} = \begin{bmatrix} 400 x_1^3 - 400 x_2 x_1 + 2 x_1 - 2 \\ 200 x_2 - 200 x_1 ^ 2 \end{bmatrix}$
+
+$\triangledown^2 f(x) = \begin{bmatrix} 1200 x_1^2 - 400 x_2 + 2 & -400x_1 \\ -400x_1 & 200 \end{bmatrix}$
+
+Suppose $x^*$ is local minimizer. Then we can get $\triangledown f(x^*) = 0$ and $\triangledown^2 f(x^*) \succeq 0$.
+
+$\begin{bmatrix} 400 {x_1^*}^3 - 400 {x_2^*} {x_1^*} + 2 {x_1^*} - 2 \\ 200 {x_2^*} - 200 {x_1^*} ^ 2 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$
+
+$\Longrightarrow x^* = \begin{bmatrix} 1 \\ 1 \end{bmatrix} $
+
+$\therefore \triangledown^2 f(x) = \begin{bmatrix} 1200 - 400 + 2 & -400 \\ -400 & 200 \end{bmatrix} = \begin{bmatrix} 802 & -400 \\ -400 & 200 \end{bmatrix}$, and eigenvalues are $501 \pm \sqrt{501^2 - 20^2} > 0$, so Hessian at $x^*$ is positive definite.
+
+
+
+
+
+
+
+
+
+
+\bigskip
+% Problem 5
+\item
+
+$f(x) = (x_1+x_2)^2$
+
+$ - \triangledown f(x) = - \begin{bmatrix} 2(x_1+x_2^2) \\ 4x_2(x_1+x_2^2) \end{bmatrix}= \begin{bmatrix} -2 \\ 0 \end{bmatrix}$
+
+Let $\theta$ be the angle between $p$ and $-\triangledown f(x)$. So $\cos \theta = \frac{\sqrt{2}}{2} > 0$, which means $p$ has an angle strictly less than $\frac{\pi}{2}$ with $-\triangledown f(x)$, and $p$ is a descent direction.
+
+$\underset{\alpha>0}{\min} f(x + \alpha p) = \underset{\alpha>0}{\min} f(\begin{bmatrix} 1-\alpha \\ \alpha \end{bmatrix}) = \underset{\alpha>0}{\min} (1-\alpha + \alpha^2)^2$
+
+So when $\alpha = \frac{1}{2}$, we can get minima $\frac{9}{16}$.
+
+
+
+
+
+
+\bigskip
+% Problem 6
+\item
+
+$\tilde f(z) = f(x) = f(Sz+s)$
+
+$ \triangledown \tilde f(z) = \frac{d \tilde f}{dz} =  \begin{bmatrix}  \frac{d \tilde f}{dz_1} \\  \frac{d \tilde f}{dz_2} \\ \vdots \end{bmatrix} $
+
+$ \frac{d \tilde f}{dz_j} = \underset{i}{\sum} \frac{df}{dx_i}  \frac{dx_i}{dz_j} = \underset{i}{\sum} S_{ij} \frac{df}{dx_i}$
+
+$ \triangledown \tilde f(z) = \frac{d \tilde f}{dz} =  \begin{bmatrix}  \frac{d \tilde f}{dz_1}  \\  \frac{d \tilde f}{dz_2} \\ \vdots \end{bmatrix} =
+\begin{bmatrix}\frac{df}{dx_1}S_{11} + \frac{df}{dx_2}S_{21} + \hdots \\ \frac{df}{dx_1}S_{12} + \frac{df}{dx_2}S_{22} + \hdots \\ \vdots \end{bmatrix} =
+\begin{bmatrix}S_{11} & S_{21} & \hdots \\ S_{12} & S_{22} & \hdots \\ \vdots & \vdots & \ddots \end{bmatrix} \begin{bmatrix} \frac{df}{dx_1} \\ \frac{df}{dx_2} \\ \vdots \end{bmatrix} =
+S^T \triangledown f(x)$
+
+Similarly, we can get:
+
+$\frac{d^2}{z_j} = \underset{i}{\sum} \frac{d}{dx_i} (\underset{k}{\sum} \frac{df}{dx_k} \frac{dx_k}{dz_j} ) \frac{dx_i}{dz_j}=
+\underset{i}{\sum} \underset{k}{\sum} S_{ij} S_{kj} \frac{d^2f}{dx_i dx_k} =
+\begin{bmatrix} S_{1j} & S_{2j} & \hdots \end{bmatrix} \begin{bmatrix} \underset{k}{\sum} S_{kj} \frac{d^2}{dx_1 dx_k} \\ \underset{k}{\sum} S_{kj} \frac{d^2}{dx_2 dx_k} \\ \vdots \end{bmatrix} = $
+
+$\begin{bmatrix} S_{1j} & S_{2j} & \hdots \end{bmatrix} \begin{bmatrix} \frac{d^2}{dx_1 dx_1} & \frac{d^2}{dx_1 dx_2} & \hdots\\ \frac{d^2}{dx_2 dx_1} & \frac{d^2}{dx_2 dx_2} & \hdots \\ \vdots  & \vdots & \ddots\end{bmatrix} \begin{bmatrix} S_{1j} \\ S_{2j} \\ \vdots \end{bmatrix} $
+
+
+
+So $ \triangledown^2 \tilde f(z) = S^T \triangledown^2 f(x) S $
+
+
+
+
+
+
+
+\bigskip
+% Problem 7
+\item
+$f(x) = x_1^2 + x_2^2 +\beta x_1 x_2 + x_1 + 2 x_2$
+
+$\triangledown f(x) = \begin{bmatrix} 2x_1 + \beta x_2 + 1 \\ 2x_2 + \beta x_1 + 2 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$
+
+$f(x) = x^T \begin{bmatrix} 2 & \beta \\ \beta & 2 \end{bmatrix} x + \begin{bmatrix} 1 \\ 2 \end{bmatrix} x$
+
+$\left\{ \begin{aligned}
+\begin{bmatrix} \frac{4 - 4\beta}{\beta^2 - 4} \\ \frac{4 - \beta}{\beta^2 - 4} \end{bmatrix} &, & \beta \ne \pm 2 \\ \text{no solution}&, & \beta = \pm 2
+\end{aligned} \right. $
+
+For local minimizer,
+$\triangledown^2 f(x) = \begin{bmatrix} 2 & \beta \\ \beta & 2 \end{bmatrix} \succeq 0$, and eigenvalues are $2 \pm \beta \ge 0$. That is $-2 \le \beta \le 2$. Combined with condition $\triangledown f(x) = 0$, we have $-2 < \beta < 2$.
+
+And since $Q$ is positive definite, then this function is convex, so these points are global minimizer. That is $\begin{bmatrix} \frac{4 - 4\beta}{\beta^2 - 4} \\ \frac{4 - \beta}{\beta^2 - 4} \end{bmatrix} , -2 < \beta < 2$.
+
+%Let $x^* = \begin{bmatrix} \frac{4 - 4\beta}{\beta^2 - 4} \\ \frac{4 - \beta}{\beta^2 - 4} \end{bmatrix} , -2 < \beta < 2$ is local minimizer, and we need to prove that it is also global minimizer.
+
+
+
+
+
+\bigskip
+% Problem 8
+\item
+
+Sufficient: $f$ is convex $\Longrightarrow$ $\Omega$ is convex and $\triangledown^2 f(x) \succeq 0, \forall x \in \Omega$.
+
+Prove $\Omega$ is convex:
+
+Because $f$ is convex, $f((1-\alpha)x+\alpha y) = (1-\alpha) f(x) + \alpha f(y)$, for $\forall x, y \in \Omega$, which implies that $(1-\alpha)x+\alpha y \in \Omega$, so $\Omega$ is convex.
+
+Prove $\triangledown^2 f(x) \succeq 0, \forall x \in \Omega$:
+
+Because $f$ is convex, we can get $f(y) \ge f(x) + \triangledown f(x)^T (y-x), \forall x, y \in \Omega$.
+
+And let $y=x+p$, we can get $f(x+p) \ge f(x) + \triangledown f(x)^T p, \forall x, p \in \Omega$.
+
+According to Taylor's Thrm,
+
+$f(x+p) = f(x) + \triangledown f(x)^T p + \frac{1}{2} p^T \triangledown^2 f(x+tp)p, \exists t \in (0,1)$.
+
+So $\forall x, p \in \Omega$, $\exists t \in (0,1)$, $ \frac{1}{2} p^T \triangledown^2 f(x+tp)p \ge 0 \Longrightarrow \triangledown^2f(x) \succeq 0$.
+
+\bigskip
+
+Necessary: $\Omega$ is convex and $\triangledown^2 f(x) \succeq 0, \forall x \in \Omega$ $\Longrightarrow$ $f$ is convex.
+
+According to Taylor's Thrm:
+
+$f(x) = f(y) + \triangledown f(y)^T (x-y) + \frac{1}{2} (x-y)^T \triangledown^2 f(y + t(x-y))^T (x-y)$, $\exists t \in (0,1)$
+
+And $\triangledown^2 f(x)$ is positive semi-definite, then $f(x) \ge f(y) + \triangledown f(y)^T (x-y)$.
+
+Then we set $z = \lambda y + (1-\lambda) x$, $\forall \lambda \in [0, 1]$.
+
+$f(y) \ge f(z) + \triangledown f(z)^T (y-z) =  f(z) + \triangledown f(z)^T (1-\lambda)(y-x)$
+
+$f(x) \ge f(z) + \triangledown f(z)^T (x-z) =  f(z) + \triangledown f(z)^T (-\lambda)(y-x)$
+
+$\Longrightarrow$
+
+$\lambda f(y) \ge \lambda f(z) + \lambda(1-\lambda) \triangledown f(z)^T (y-x)$
+
+$(1-\lambda) f(x) \ge (1-\lambda) f(z) - \lambda(1-\lambda) \triangledown f(z)^T (y-x)$
+
+$\Longrightarrow$
+
+$\lambda f(y) + (1-\lambda) f(x) \ge f(\lambda y + (1-\lambda)x)$
+
+So $f$ is convex.
+
+\bigskip
+% Problem 9
+\item
+\begin{enumerate}
+\item
+$\triangledown f(x) = \begin{bmatrix} 4x_1^3 - 16 x_1 \\ 2x_2 \end{bmatrix}=0 $
+
+$\Longrightarrow x = \begin{bmatrix} 0 \\ 0\end{bmatrix}, \begin{bmatrix} 2 \\ 0\end{bmatrix}, \begin{bmatrix} -2 \\ 0\end{bmatrix}$
+
+$\triangledown^2 f(x) = \begin{bmatrix}12x_1^2 - 16 & 0 \\ 0 & 2 \end{bmatrix}$
+
+When we take $x = \begin{bmatrix} 2 \\ 0\end{bmatrix}, \begin{bmatrix} -2 \\ 0\end{bmatrix} $, $\triangledown^2 f(x) = \begin{bmatrix}32 & 0 \\ 0 & 2 \end{bmatrix} \succeq 0$, so both are local minima.
+
+And $x = \begin{bmatrix} 0 \\ 0\end{bmatrix}$, $\triangledown^2 f(x) = \begin{bmatrix}-12 & 0 \\ 0 & 2 \end{bmatrix} \nsucceq 0$, so this is a saddle point.
+
+\item
+$\triangledown f(x) = \begin{bmatrix} x_1 + \cos x_2 \\ - x_1 \sin x_2  \end{bmatrix}=0 $
+
+$\Longrightarrow x = \begin{bmatrix} 0 \\ \frac{\pi}{2} + k\pi \end{bmatrix}, \begin{bmatrix} 1 \\ \pi + 2k\pi \end{bmatrix}, \begin{bmatrix} -1 \\ 2 \pi + 2k\pi \end{bmatrix}$
+
+$\triangledown ^2 f(x) = \begin{bmatrix} 1 & -\sin x_2 \\ -\sin x_2 & -x_1 \cos x_2 \end{bmatrix} \succeq 0$
+
+$ x = \begin{bmatrix} 0 \\ \frac{\pi}{2} + 2k\pi \end{bmatrix}$, $\triangledown ^2 f(x) = \begin{bmatrix} 1 & -1 \\ -1 & 0 \end{bmatrix} \nsucceq 0$, not local minima.
+
+$ x = \begin{bmatrix} 1 \\ \pi + 2k\pi \end{bmatrix}$, $\triangledown ^2 f(x) = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \succeq 0$, is local minima.
+
+$ x = \begin{bmatrix} 0 \\ \frac{3\pi}{2} + 2k\pi \end{bmatrix}$, $\triangledown ^2 f(x) = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix} \nsucceq 0$, not local minima.
+
+$ x = \begin{bmatrix} -1 \\ 2 \pi + 2k\pi \end{bmatrix}$, $\triangledown ^2 f(x) = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \succeq 0$, is local minima.
+
+
+\item
+$\triangledown f(x) = \begin{bmatrix} -4 x_1 (x_2-x_1^2) - 2x_1 \\ 2(x_2-x_1^2) \end{bmatrix}=0 $
+
+$\Longrightarrow x = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$
+
+$\triangledown ^2 f(x) = \begin{bmatrix} 12x_1^2 -4 x_2 -2 & -4x_1 \\ -4 x_1 & 2 \end{bmatrix} = \begin{bmatrix} -2 & 0 \\ 0 & 2 \end{bmatrix} \nsucceq 0$. So this is a saddle point.
+
+\end{enumerate}
+
+
+
+
+\end{enumerate}
+
+\end{document}
+

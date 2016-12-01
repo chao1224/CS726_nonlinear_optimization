@@ -1,0 +1,76 @@
+Outputs:
+
+ Function resida running BFGS
+Success: 18 steps taken
+  Ending point:  0.08241    1.133    2.344 
+  Ending value: 0.004107 ; No. function evaluations: 33; No. gradient evaluations 31
+  Norm of ending gradient: 5.701e-09
+
+
+
+
+ Function residb running BFGS
+Success: 14 steps taken
+  Ending point:    1.018   0.9655 
+  Ending value:   0.3349 ; No. function evaluations: 39; No. gradient evaluations 33
+  Norm of ending gradient: 7.408e-07
+
+
+
+
+ Function xpowsing running BFGS
+Success: 36 steps taken
+
+  Ending value: 1.002e-12 ; No. function evaluations: 69; No. gradient evaluations 63
+  Norm of ending gradient: 8.937e-09
+
+
+
+
+ Function tridia running LBFGS with m=3
+Success: 21 steps taken
+
+  Ending value: 1.357e-06 ; No. function evaluations: 43; No. gradient evaluations 39
+  Norm of ending gradient: 8.764e-05
+
+
+
+
+ Function tridia running LBFGS with m=5
+Success: 22 steps taken
+
+  Ending value: 1.667e-07 ; No. function evaluations: 39; No. gradient evaluations 36
+  Norm of ending gradient: 6.158e-05
+
+
+
+
+ Function tridia running LBFGS with m=8
+Success: 17 steps taken
+
+  Ending value: 9.991e-07 ; No. function evaluations: 35; No. gradient evaluations 32
+  Norm of ending gradient: 8.992e-05
+
+
+
+
+ Function tridia running LBFGS with m=12
+Success: 21 steps taken
+
+  Ending value: 3.073e-07 ; No. function evaluations: 46; No. gradient evaluations 41
+  Norm of ending gradient: 9.93e-05
+
+
+
+
+ Function tridia running LBFGS with m=20
+Success: 26 steps taken
+
+  Ending value: 2.953e-07 ; No. function evaluations: 60; No. gradient evaluations 54
+  Norm of ending gradient: 5.224e-05
+
+
+Response:
+(a) To conclude, there's no a general trend that with larger m, the function gets converged faster. Namely, it's highly depends on the starting points and parameters.
+(b) Comparing to CG result, it converges much faster.
+The explaining data is in the pdf file.

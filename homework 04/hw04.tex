@@ -1,0 +1,205 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsmath,amsthm,amsbsy,graphicx,color,dsfont,listings, float, graphicx, amssymb, textcomp}
+
+%
+\renewcommand{\baselinestretch}{1}
+\topmargin=-0.5truein
+\textheight=9.0truein
+\oddsidemargin=0.0truein
+\textwidth=6.5truein
+%
+\pagestyle{empty}
+\def \R{\mathbb R}
+\def \E{\mathbb E}
+\def \bmu{\boldsymbol \mu}
+\def \P{\mathbb P}
+\def \bX{\mbox{\boldmath$X$}}
+\def \beps{\boldsymbol \epsilon}
+\def \bx{\boldsymbol x}
+\def \by{\boldsymbol y}
+\def \bw{\boldsymbol w}
+\def \bs{\boldsymbol s}
+\def \bv{\boldsymbol v}
+\def \bI{\boldsymbol I}
+\def \bSigma{\boldsymbol \Sigma}
+\def \btheta{\boldsymbol \theta}
+\def \bH{\boldsymbol H}
+\def \bmu{\boldsymbol \mu}
+\def \1{\mathds{1}}
+\def \F{{\cal F}}
+\def \Rad{\mathfrak{R}}
+
+
+\begin{document}
+
+\begin{center} {\Large
+{\bf Homework 3\\Shengchao Liu}}
+\end{center}
+
+\begin{enumerate}
+
+% Problem 1
+\item
+
+\clearpage
+
+
+
+
+% Problem 2
+\item
+
+\clearpage
+
+
+
+
+
+
+
+
+
+
+
+% Problem 3
+
+\item
+
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, frame=shadowbox, basicstyle=\ttfamily\small, showspaces=false, breaklines=true, showstringspaces=false, showtabs=false]
+ function [inform, x] = DoglegTR(fun, x, trparams)
+numf = 0;
+numg = 0;
+numH = 0;
+delta_cur = trparams.Delta0;
+
+x.f = feval(fun, x.p, 1);
+x.g = feval(fun, x.p, 2);
+if norm(x.g) <= trparams.toler
+    inform.status = 0;
+    return
+end
+x.h = feval(fun, x.p, 4);
+[v,d] = eig(x.h);
+for i = 1 : size(d,1)
+    d(i,i) = max(d(i,i),trparams.delta);
+end
+x.h = v' * d * v;
+
+for ite = 1 : trparams.maxit
+    inform.iter = ite;
+    %% update with dogleg
+    p_B = - x.h^(-1) * x.g;
+    p_u = - (x.g' * x.g * x.g )  / (x.g' * x.h * x.g);
+    if norm(p_B) <= delta_cur
+        p_hat = p_B;
+    elseif norm(p_u) >= delta_cur
+        p_hat = p_u * delta_cur / norm(p_u);
+    else
+        a = 1.0 * norm(p_B-p_u).^2;
+        b = 1.0* 2 *  p_u' * (p_B -p_u);
+        c = 1.0 * norm(p_u).^2 - delta_cur.^2;
+        tao1 =  (-b + sqrt(b*b - 4*a*c)) / (2*a);
+        tao2 =  (-b - sqrt(b*b - 4*a*c)) / (2*a);
+        if 0 <= tao1 && tao1 <= 1
+            tao = tao1;
+        else
+            tao = tao2;
+        end
+        p_hat = p_u + (tao) * (p_B - p_u);
+    end
+    p_neo = p_hat;
+
+    next_f = feval(fun, x.p+p_neo,1);
+    rho_cur = 1.0 * (x.f - next_f) / -(x.g' * p_neo + 0.5 * p_neo' * x.h * p_neo );
+    if rho_cur < 0.25
+        delta_next = 0.25 * delta_cur;
+    elseif rho_cur > 0.75 && norm(p_neo) == delta_cur
+        delta_next = min(2*delta_cur,  trparams.hatDelta);
+    else
+        delta_next = delta_cur;
+    end
+    delta_cur = delta_next;
+
+    if rho_cur > trparams.eta
+        x.p = x.p + p_neo;
+        x.f = next_f;
+        x.g = feval(fun, x.p, 2);
+       %% check if stopping criteria meets
+        if norm(x.g) <= trparams.toler
+            inform.status = 1;
+            return
+        end
+        x.h = feval(fun, x.p, 4);
+        [v,d] = eig(x.h);
+        for i = 1 : size(d,1)
+            d(i,i) = max(d(i,i),trparams.delta);
+        end
+        x.h = v' * d * v;
+    end
+    fprintf(1, ' iter %3d: f=%12.5e, ||Df||=%12.5e, Delta=%7.2e\n', inform.iter, x.f, norm(x.g), delta_cur);
+
+
+end
+
+inform.status = 0;
+inform.iter = trparams.maxit;
+
+return;
+\end{lstlisting}
+
+\clearpage
+
+% problem 4
+
+\item
+
+Results are show below:
+
+\begin{lstlisting}[language={[ANSI]C}, numbers=left, numberstyle=\tiny, frame=shadowbox, basicstyle=\ttfamily\small, showspaces=false, breaklines=true, showstringspaces=false, showtabs=false]
+Success: 1 steps taken
+  Ending point:       -0.5        0.5
+  Ending function value:       -1.5
+  No. function evaluations: 2, No. gradient evaluations 2
+  Norm of ending gradient:          0
+
+
+ iter   1: f= 2.24365e+00, ||Df||= 3.12576e+00, Delta=2.00e+00
+Success: 2 steps taken
+  Ending point:   0.586667 -0.0346667
+  Ending function value:  -0.362667
+  No. function evaluations: 3, No. gradient evaluations 3
+  Norm of ending gradient: 1.83103e-15
+
+
+ iter   1: f= 4.73188e+00, ||Df||= 4.63943e+00, Delta=1.00e+00
+ iter   2: f= 4.73188e+00, ||Df||= 4.63943e+00, Delta=2.50e-01
+ iter   3: f= 4.30204e+00, ||Df||= 4.83210e+00, Delta=2.50e-01
+ iter   4: f= 3.86090e+00, ||Df||= 5.22502e+00, Delta=5.00e-01
+ iter   5: f= 3.21731e+00, ||Df||= 1.97064e+01, Delta=5.00e-01
+ iter   6: f= 2.52328e+00, ||Df||= 1.07888e+01, Delta=5.00e-01
+ iter   7: f= 2.09298e+00, ||Df||= 1.55424e+01, Delta=5.00e-01
+ iter   8: f= 1.49705e+00, ||Df||= 4.01627e+00, Delta=5.00e-01
+ iter   9: f= 1.49705e+00, ||Df||= 4.01627e+00, Delta=1.25e-01
+ iter  10: f= 1.21110e+00, ||Df||= 2.79973e+00, Delta=2.50e-01
+ iter  11: f= 1.01835e+00, ||Df||= 1.09569e+01, Delta=2.50e-01
+ iter  12: f= 6.09689e-01, ||Df||= 1.50983e+00, Delta=2.50e-01
+ iter  13: f= 4.98802e-01, ||Df||= 1.09885e+01, Delta=2.50e-01
+ iter  14: f= 2.49038e-01, ||Df||= 7.35042e-01, Delta=2.50e-01
+ iter  15: f= 1.82226e-01, ||Df||= 8.81567e+00, Delta=2.50e-01
+ iter  16: f= 7.61538e-02, ||Df||= 5.16643e-01, Delta=2.50e-01
+ iter  17: f= 5.78820e-02, ||Df||= 7.76035e+00, Delta=2.50e-01
+ iter  18: f= 1.15444e-02, ||Df||= 1.50137e-01, Delta=2.50e-01
+ iter  19: f= 7.89461e-03, ||Df||= 3.86112e+00, Delta=2.50e-01
+ iter  20: f= 7.39536e-05, ||Df||= 9.06330e-03, Delta=2.50e-01
+ iter  21: f= 5.37405e-07, ||Df||= 3.26586e-02, Delta=2.50e-01
+Success: 22 steps taken
+  Ending point:   0.999999   0.999999
+  Ending function value: 3.49914e-13
+  No. function evaluations: 23, No. gradient evaluations 21
+  Norm of ending gradient: 6.22373e-07
+\end{lstlisting}
+
+\end{enumerate}
+
+\end{document}
+

@@ -1,0 +1,153 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsmath,amsthm,amsbsy,graphicx,color,dsfont,listings, float, graphicx, amssymb, textcomp}
+
+%
+\renewcommand{\baselinestretch}{1}
+\topmargin=-0.5truein
+\textheight=9.0truein
+\oddsidemargin=0.0truein
+\textwidth=6.5truein
+%
+\pagestyle{empty}
+\def \R{\mathbb R}
+\def \E{\mathbb E}
+\def \bmu{\boldsymbol \mu}
+\def \P{\mathbb P}
+\def \bX{\mbox{\boldmath$X$}}
+\def \beps{\boldsymbol \epsilon}
+\def \bx{\boldsymbol x}
+\def \by{\boldsymbol y}
+\def \bw{\boldsymbol w}
+\def \bs{\boldsymbol s}
+\def \bv{\boldsymbol v}
+\def \bI{\boldsymbol I}
+\def \bSigma{\boldsymbol \Sigma}
+\def \btheta{\boldsymbol \theta}
+\def \bH{\boldsymbol H}
+\def \bmu{\boldsymbol \mu}
+\def \1{\mathds{1}}
+\def \F{{\cal F}}
+\def \Rad{\mathfrak{R}}
+
+
+\begin{document}
+
+\begin{center} {\Large
+{\bf Homework 3\\Shengchao Liu}}
+\end{center}
+
+\begin{enumerate}
+
+% Problem 1
+\item
+
+$\alpha = \frac{1}{L}$, $\beta = \frac{\sqrt{L} - \sqrt{m}}{\sqrt{L} + \sqrt{m}}$.
+
+Assume $u$ is eigenvlue, then we can get:
+
+$u^2 - (1+\beta)(1-\alpha \lambda_i)u + \beta(1-\alpha \lambda_i)$,
+
+thus $u = - \frac{1}{2} [(1+\beta)(1-\alpha\lambda_i) \pm \sqrt{(1+\beta)^2(1-\alpha\lambda_i)^2 - 4\beta(1-\alpha \lambda_i)} ]$
+
+We need to prove that $(1+\beta)^2(1-\alpha\lambda_i)^2 - 4\beta(1-\alpha \lambda_i)<0$
+
+Put $\alpha = \frac{1}{L}$, $\beta = \frac{\sqrt{L} - \sqrt{m}}{\sqrt{L} + \sqrt{m}}$ into formula, we can get:
+
+$(1-\alpha \lambda_i)[(1+\frac{\sqrt{L} - \sqrt{m}}{\sqrt{L} + \sqrt{m}})^2(1-\frac{1}{L}\lambda_i) - 4\frac{\sqrt{L} - \sqrt{m}}{\sqrt{L} + \sqrt{m}}] $, and $1-\alpha \lambda_i>0$.
+
+$ \Longrightarrow (1+\frac{\sqrt{L} - \sqrt{m}}{\sqrt{L} + \sqrt{m}})^2(1-\frac{\lambda_i}{L}) - 4\frac{\sqrt{L} - \sqrt{m}}{\sqrt{L} + \sqrt{m}} = \frac{4L}{(\sqrt{L} + \sqrt{m})^2} \frac{L-\lambda_i}{L} - \frac{4(L-m)}{(\sqrt{L} + \sqrt{m})^2} = \frac{4(m-\lambda_i)}{(\sqrt{L} + \sqrt{m})^2} < 0$
+
+So the roots are distinct complex numbers.
+
+\bigskip
+
+
+
+
+
+
+% Problem 2
+
+\item
+
+$f(x) = \frac{1}{2} x^T Q x - b^T x + c$, $\bigtriangledown f(x) = Qx - bx$,
+
+And $\bigtriangledown f(x^*)=0 \rightarrow Qx^* - b =0 \rightarrow x^* = Q^{-1}b$
+
+Then we can write $\bigtriangledown f(x) = Qx - bx = Q(x-x^*)$
+
+For heavy ball:
+
+$x^{k+1} = x^k - \alpha \bigtriangledown(x^k) + \beta (x^k - x^{k-1})$,  where $\alpha = \frac{4}{(\sqrt{L} + \sqrt{m})^2}$ and $\beta = \frac{\sqrt{L} - \sqrt{m}}{\sqrt{L} + \sqrt{m}}$
+
+$\Longrightarrow x^{k+1} - x^* = x^k - x^* - \alpha Q(x^k - x^*) + \beta ( (x^k-x^*) - (x^{k-1}-x^*)) $
+
+$\begin{bmatrix} x^{k+1} - x^* \\ x^k - x^* \end{bmatrix} = \begin{bmatrix} I - \alpha Q + \beta & -\beta \\ I& 0\end{bmatrix}    \begin{bmatrix} x^k - x^* \\ x^{k-1} - x^* \end{bmatrix}$
+
+By defining $w^k = \begin{bmatrix} x^{k+1} - x^* \\ x^k - x^* \end{bmatrix}$, $T = \begin{bmatrix} I - \alpha Q + \beta & -\beta \\ I& 0\end{bmatrix}$, we can have $w^k = T w^{k-1}$.
+
+After rearranging the $T$ matrix, we can get $\begin{bmatrix} T_1  &  & & \\ & T_2 & & \\ & & \ddots & \\ & & & T_n\end{bmatrix}$, where $T_i = \begin{bmatrix} 1 - \alpha \lambda_i + \beta & -\beta \\ I& 0\end{bmatrix}$
+
+And the eigenvalues of $T_i$ is solution to $u^2 - (1 - \alpha \lambda_i + \beta)u + \beta = 0 $.
+
+$u = \frac{(1 - \alpha \lambda_i + \beta) \pm \sqrt{(1 - \alpha \lambda_i + \beta)^2 - 4 \beta}}{2}$
+
+And then we can get:
+
+\noindent$\begin{array}{lll}
+(1 - \alpha \lambda_i + \beta)^2 - 4 \beta &=&(1 + \frac{L - m}{(\sqrt{L} + \sqrt{m})^2} - \frac{4\lambda_i}{(\sqrt{L} + \sqrt{m})^2})^2 - 4 \cdot \frac{L-m}{(\sqrt{L} + \sqrt{m})^2}\\
+&=& (\frac{2L + 2\sqrt{Lm}}{(\sqrt{L} + \sqrt{m})^2} - \frac{4\lambda_i}{(\sqrt{L} + \sqrt{m})^2})^2 - 4 \cdot \frac{L-m}{(\sqrt{L} + \sqrt{m})^2}\\
+&=& \frac{4}{(\sqrt{L} + \sqrt{m})^2} \cdot [(L+m-2\lambda_i)^2 - (L-m)(L+m+2\sqrt{LM})] \\
+&=& \frac{4}{(\sqrt{L} + \sqrt{m})^2} \cdot [m^2 + Lm + 2m\sqrt{Lm} + 4\lambda_i^2 - 4L\lambda_i -4\lambda_i\sqrt{Lm}]
+\end{array}$
+
+Then we set $\phi(\lambda) = 4 \lambda^2 -4(L+\sqrt{Lm})\lambda + m^2 +Lm + 2m\sqrt{Lm}$, and can easily get $\phi(L) < 0$, and $\phi(m) < 0$
+
+Combined with the fact that $\phi(\lambda)$ is quadratic, $\phi(\lambda) < 0$, $\forall \lambda \in [m, L]$, so $(1 - \alpha \lambda_i + \beta)^2 - 4 \beta < 0$, which means the $u_{i,1}$ and $u_{i,2}$ are two complex numbers.
+
+$u_{i,1} = \frac{1}{2} [(1 - \alpha \lambda_i + \beta) + i \sqrt{4 \beta - (1 - \alpha \lambda_i + \beta)^2}] $
+
+$u_{i,2} = \frac{1}{2} [(1 - \alpha \lambda_i + \beta) - i \sqrt{4 \beta - (1 - \alpha \lambda_i + \beta)^2}] $
+
+$| u_{i,1} | = | u_{i,2} | = \frac{1}{2} \sqrt{(1 - \alpha \lambda_i + \beta)^2 + 4 \beta - (1 - \alpha \lambda_i + \beta)^2 } = \sqrt\beta $
+
+So $\rho(T) = \sqrt\beta = \sqrt\frac{\sqrt{L} - \sqrt{m}}{\sqrt{L} + \sqrt{m}}$
+
+And according to the Gelfand's Formula, we can get
+
+$\rho(T) = (\underset{k\to\infty}{lim}\|T^k\|)^{{1}/{k}}$
+
+A consequence is that $\forall \epsilon > 0$, there is $\|T^k\| \le c(\rho(T) + \epsilon )^k$
+
+$\Longrightarrow \|w^k\| = \|T^k w^0\| \le \|T^k\| \|w^0\| \le c \|w^0\| (\rho(T) + \epsilon )^k$
+
+And because $\rho(T) = \sqrt\frac{\sqrt{L} - \sqrt{m}}{\sqrt{L} + \sqrt{m}} < 1$, so $\|w^k\|$ converges linearly to zero.
+
+\bigskip
+
+
+
+
+
+
+
+
+
+
+
+% Problem 3
+
+\item
+
+According to problem, we have $x^0=0$, and $x_i^* = 1 - i / (n+1)$,
+
+$\| x^0 - x^*\|^2_2 = \sum_{i=1}^n (1-\frac{i}{n+1})^2 = \frac{1}{(n+1)^2} \cdot \frac{n(n+1)(2n+1)}{6} \le \frac{n \cdot 2(n+1)}{6(n+1)} = \frac{n}{3}$
+
+$\| x^k - x^* \|^2_2 = \sum_{i=k+1}^n (1-\frac{i}{n+1})^2 = \frac{1}{(n+1)^2} \cdot \frac{(n-k)(n-k+1)(2n-2k+1)}{6} \ge \frac{(n-k)\cdot (n-k) \cdot 2(n-k)}{6(n+1)^2} = \frac{(n-k)^3}{3(n+1)^2}$
+
+And because $\frac{1}{3} \ge \frac{\| x^0 - x^*\|^2_2}{n}$, we get $\| x^k - x^* \|^2_2 \ge \frac{(n-k)^3}{3(n+1)^2} \ge \frac{(n-k)^3}{n(n+1)^2}\| x^0 - x^*\|^2_2$
+
+\end{enumerate}
+
+\end{document}
+

@@ -1,0 +1,229 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amsmath,amsthm,amsbsy,graphicx,color,dsfont,listings, float, graphicx, amssymb, textcomp, hhline}
+
+%
+\renewcommand{\baselinestretch}{1}
+\topmargin=-0.5truein
+\textheight=9.0truein
+\oddsidemargin=0.0truein
+\textwidth=6.5truein
+%
+\pagestyle{empty}
+\def \R{\mathbb R}
+\def \E{\mathbb E}
+\def \bmu{\boldsymbol \mu}
+\def \P{\mathbb P}
+\def \bX{\mbox{\boldmath$X$}}
+\def \beps{\boldsymbol \epsilon}
+\def \bx{\boldsymbol x}
+\def \by{\boldsymbol y}
+\def \bw{\boldsymbol w}
+\def \bs{\boldsymbol s}
+\def \bv{\boldsymbol v}
+\def \bI{\boldsymbol I}
+\def \bSigma{\boldsymbol \Sigma}
+\def \btheta{\boldsymbol \theta}
+\def \bH{\boldsymbol H}
+\def \bmu{\boldsymbol \mu}
+\def \1{\mathds{1}}
+\def \F{{\cal F}}
+\def \Rad{\mathfrak{R}}
+
+
+\begin{document}
+
+\begin{center} {\Large
+{\bf Homework 7\\Shengchao Liu}}
+\end{center}
+
+\begin{enumerate}
+
+% Problem 1
+\item
+
+First we have
+
+$\begin{array}{lll}
+\hat H_{k+1} &= I - \frac{s \cdot y^T}{y^T \cdot s}\\
+\\
+& = \frac{1}{y^T \cdot s}
+    \begin{bmatrix} s_1 y_1 - \sum_i s_i y_i & s_1 y_2 & \hdots & s_1 y_n \\
+                    s_2 y_1 & s_2 y_2 - \sum_i s_i y_i & \hdots & s_2 y_n \\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    s_n y_1 & s_n y_2 & \hdots & s_n y_n - \sum s_i y_i\end{bmatrix}
+\end{array}$
+
+Suppose $c_i$ is the i-th column of $\hat H_{k+1}$, so we can get
+
+$\begin{array}{lll}
+c_1 s_1 + c_2 s_2 + \hdots + c_n s_n & =
+\begin{bmatrix}s_1 s_1 y_1 - s_1 \sum s_i y_i + s_1 s_2 y_2 + \hdots + s_1 s_n y_n\\
+               s_1 s_2 y_1 + s_2 s_2 y_2 - s_2 \sum s_i y_i + \hdots + s_2 s_n y_n\\
+               \vdots\\
+               s_1 s_n y_1 + s_2 s_n y_2 + \hdots + s_n s_n y_n - s_n \sum s_i y_i\end{bmatrix}\\
+\\
+& =
+\begin{bmatrix}s_1 (s_1 y_1 + s_2 y_2 + \hdots + s_n y_n - \sum s_i y_i)\\
+               s_2 (s_1 y_1 + s_2 y_2 + \hdots + s_n y_n - \sum s_i y_i)\\
+               \vdots\\
+               s_n (s_1 y_1 + s_2 y_2 + \hdots + s_n y_n - \sum s_i y_i)\\\end{bmatrix}\\
+\\
+& = \begin{bmatrix}0 \\ 0 \\ \vdots \\ 0\end{bmatrix}
+\end{array}$
+
+So $\hat H_{k+1}$ is linearly dependent, so it is singular.
+
+
+
+
+\bigskip
+\bigskip
+\bigskip
+
+
+
+
+
+% Problem 2
+\item
+
+$f(x_{k+1}) = f(x_k + \alpha_k p_k)$
+
+According to exact line search, we get $ p_k^T  \bigtriangledown f(x_k + \alpha_k p_k) = 0$
+
+That is $p_k^T  \bigtriangledown f(x_{k+1}) = 0$.
+
+$ p_k = - ( I - \frac{s_ky_k^t}{y_k^Ts_k} - \frac{y_ks_k^T}{y_k^Ts_k} + \frac{(y_k^Ty_k)s_ks_k^T}{(y_k^Ts_k)^2} + \frac{s_ks_k^T}{y_k^Ts_k}) \cdot \bigtriangledown f_{k+1}$
+
+And $s_k = \alpha_k p_k$, so $s_k^T \bigtriangledown f_{k+1} = \alpha_k p_k^T \bigtriangledown f_{k+1} = 0$.
+
+Plug this into original equation, we get
+
+$ p_k = - ( I - \frac{p_ky_k^T}{y_k^Tp_k} ) \cdot \bigtriangledown f_{k+1} = -\bigtriangledown f_{k+1} + \frac{p_ky_k^T \bigtriangledown f_{k+1}}{y_k^T p_k} =  -\bigtriangledown f_{k+1} + \frac{\bigtriangledown f_{k+1}^T y_k}{y_k^T p_k} p_k $
+
+
+
+\bigskip
+\bigskip
+\bigskip
+
+
+
+
+
+% Problem 3
+\item
+
+Using inductive method, first we assume that after k steps, we have $Q_k$ and $\Sigma_k = D_k + L_k + L_k^T - S_k^T B_0 S_k$.
+
+Then given a new pair $s_k, y_k$:
+
+$Q_k = [Y_k, y_k] - B_0 [S_k, s_k] = [Q_k, y_k - B_0 s_k]$
+
+And according to definition in formula 7.25 - 7.27, we get:
+
+$\Sigma_k =
+\begin{bmatrix}
+s_0^T y_0 - s_0^T B_0 s_0 & s_1^T y_0 - s_0^T B_0 s_1 & s_2^T y_0 - s_0^T B_0 s_2 & \hdots & s_{k-1}^T y_0 - s_0^T B_0 s_{k-1} \\
+s_1^T y_0 - s_1^T B_0 s_0 & s_1^T y_1 - s_1^T B_0 s_1 & s_2^T y_1 - s_1^T B_0 s_2 & \hdots & s_{k-1}^T y_1 - s_1^T B_0 s_{k-1} \\
+s_2^T y_0 - s_2^T B_0 s_0 & s_2^T y_1 - s_2^T B_0 s_1 & s_2^T y_2 - s_2^T B_0 s_2 & \hdots & s_{k-1}^T y_2 - s_2^T B_0 s_{k-1} \\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+s_{k-1}^T y_0 - s_{k-1}^T B_0 s_0 & s_{k-1}^T y_1 - s_{k-1} B_0 s_1 & s_{k-1}^T y_2 - s_{k-1} B_0 S_2 & \hdots & s_{k-1}^T y_{k-1} - s_{k-1}^T B_0 s_{k-1}
+\end{bmatrix}$
+
+SO when we expand $\Sigma_k$ to $\Sigma_{k+1}$, we get:
+
+$\begin{array}{lll}
+\Sigma_{k+1} & =
+\begin{bmatrix}
+s_0^T y_0 - s_0^T B_0 s_0 & s_1^T y_0 - s_0^T B_0 s_1 & \hdots & s_{k-1}^T y_0 - s_0^T B_0 s_{k-1} & s_k^T y_0 - s_0^T B_0 s_k\\
+s_1^T y_0 - s_1^T B_0 s_0 & s_1^T y_1 - s_1^T B_0 s_1 & \hdots & s_{k-1}^T y_1 - s_1^T B_0 s_{k-1} & s_k^T y_1 - s_1^T B_0 s_k\\
+\vdots & \vdots & \ddots & \vdots & \vdots\\
+s_{k-1}^T y_0 - s_{k-1}^T B_0 s_0 & s_{k-1}^T y_1 - s_{k-1} B_0 s_1 & \hdots & s_{k-1}^T y_{k-1} - s_{k-1}^T B_0 s_{k-1} & s_k^T y_{k-1} - s_{k-1}^T B_0 s_k\\
+s_k^T y_0 - s_k B_0 s_0 & s_k y_1 - s_k B_0 s_1 & \hdots & s_k^T y_{k-1} - s_k^T B_0 s_k & s_k^Ty_k - s_k^T B_0 s_k
+\end{bmatrix}\\
+\\
+& =
+\begin{bmatrix}
+s_0^T y_0 - s_0^T B_0 s_0 & s_1^T y_0 - s_0^T B_0 s_1 & \hdots & s_{k-1}^T y_0 - s_0^T B_0 s_{k-1} & y_0^T s_k - s_0^T B_0 s_k\\
+s_1^T y_0 - s_1^T B_0 s_0 & s_1^T y_1 - s_1^T B_0 s_1 & \hdots & s_{k-1}^T y_1 - s_1^T B_0 s_{k-1} & y_1^T s_k - s_1^T B_0 s_k\\
+\vdots & \vdots & \ddots & \vdots & \vdots\\
+s_{k-1}^T y_0 - s_{k-1}^T B_0 s_0 & s_{k-1}^T y_1 - s_{k-1} B_0 s_1 & \hdots & s_{k-1}^T y_{k-1} - s_{k-1}^T B_0 s_{k-1} & y_{k-1}^T s_k - s_{k-1}^T B_0 s_k\\
+s_k^T y_0 - s_k B_0 s_0 & s_k y_1 - s_k B_0 s_1 & \hdots & s_k^T y_{k-1} - s_k^T B_0 s_k & s_k^Ty_k - s_k^T B_0 s_k
+\end{bmatrix}\\
+\\
+& =
+\begin{bmatrix}
+\Sigma_k & Q_k^T s_k \\
+s_k^T Q_k & s_k^Ty_k - s_k^T B_0 s_k
+\end{bmatrix}
+\end{array}$
+
+Therefore prove that we can represent $Q_{k+1}$ and $\Sigma_{k+1}$. And these two matrix has dimension which requires less storage.
+
+
+\bigskip
+\bigskip
+\bigskip
+
+
+
+
+
+
+% Problem 4
+\item
+
+*Multiplication forward sweep*:
+
+$x_k = x_i \cdot x_j$, $\frac{\partial x_k}{\partial x_i} = x_j$, $\frac{\partial x_k}{\partial x_j} = x_i$
+
+one multiplication.
+
+*Multiplication reverse sweep*:
+
+$\bar x_k = 1$, $\bar x_i += \bar x_k \cdot x_j = x_j$, $\bar x_j += \bar x_k \cdot x_i = x_i$
+
+two addictions, and two multiplications.
+
+\bigskip
+
+*Cosine forward sweep*:
+
+$x_k = cos (x_i)$, $\frac{\partial x_k}{x_i} = -sin (x_i)$
+
+one cosine function, one sine function, and one multiplication.
+
+*Cosine reverse sweep*:
+
+$\bar x_k = 1$
+
+$\bar x_i += \bar x_k \cdot - \sin(x_i)$
+
+one addiction, one multiplication.
+
+
+
+
+
+\bigskip
+\bigskip
+\bigskip
+
+
+
+
+
+% Problem 5
+\item
+
+First we can say that this computational graph is directed acyclic graph, and only one ending point, with out-degree as 0 at first. And we can remove the node once it gets finalized.
+
+Suppose at one reverse sweep step, no nodes can get finalized. That is to say, all nodes have out-degree greater than or equal to 1. But this can't be true for directed acyclic graph, so the assumption doesn't hold.
+
+Claim is, at each step, we can find at least one node with out-degree as 0, and such 0 out-degree nodes can get finalized.
+
+\end{enumerate}
+
+\end{document}
+

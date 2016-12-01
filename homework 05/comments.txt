@@ -1,0 +1,25 @@
+First is my answer:
+As I tested, the FR is very sensitive to parameters. If we choose a very good parameter set, it can perform as well as CG PR+, but if they are badly chosen, it took much longer time, over 200 epoches to get converged in this problem. And CG PR+ is the most stable one as I tested, the performance is almost the same, and it can converge very fast, within 60 epoches. And SGD is the slowest, in my testing cases, it will not get converged within 10000 epoches.
+
+Below is the result:
+
+** Fletcher-Reeves CG on xpowsing
+Success: 65 steps taken
+
+  Ending value: 4.293e-07 ; No. function evaluations: 205; No. gradient evaluations 88
+  Norm of ending gradient: 7.732e-06
+
+ 
+** PR+ CG on xpowsing
+Success: 59 steps taken
+
+  Ending value: 9.506e-07 ; No. function evaluations: 182; No. gradient evaluations 86
+  Norm of ending gradient: 9.473e-06
+
+ 
+** Steepest Descent on xpowsing
+CONVERGENCE FAILURE: 10000 steps were taken without
+gradient size decreasing below    1e-05.
+
+  Ending value: 7.69e-06 ; No. function evaluations: 35002; No. gradient evaluations 15001
+  Norm of ending gradient: 0.000135
